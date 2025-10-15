@@ -136,6 +136,8 @@
         <a href="#intro" class="active">Introduction</a>
         <a href="#salaire-base">Salaire de base & SMIC</a>
         <a href="#conges-payes">Congés payés</a>
+        <a href="#jours-feries">Jours fériés</a>
+        <a href="#exos-feries">Exercices fériés</a>
         <a href="#heures-sup">Heures supplémentaires</a>
         <a href="#exos-hs">Exercices HS</a>
         <a href="#heures-compl">Heures complémentaires</a>
@@ -143,6 +145,7 @@
         <a href="#quiz">Quiz rapide</a>
         <a href="#avantages-nature">Avantages en nature</a>
         <a href="#temps-effectif">Temps de travail effectif</a>
+        <a href="#refs">Références officielles</a>
       </nav>
     </aside>
 
@@ -182,11 +185,12 @@
         </details>
       </section>
 
-      <section id="conges-payes" class="card" data-tags="congés payés acquisition période référence maintien dixième indemnité">
-        <h2 class="h1">Congés payés (acquisition & indemnité)</h2>
+      <section id="conges-payes" class="card" data-tags="congés payés acquisition période référence maintien dixième indemnité déclenchement heures supplémentaires 2025">
+        <h2 class="h1">Congés payés (acquisition, indemnité & impact HS) <span class="chip info">⚖️ MAJ 2025</span></h2>
         <p>
           Droits acquis sur une période de référence (souvent 1er juin N‑1 → 31 mai N). Tout salarié bénéficie de <strong>5 semaines</strong> (30 ouvrables ou 25 ouvrés) par an. Certaines périodes d’absence sont assimilées à du travail effectif pour l’acquisition.
         </p>
+        <p class="hl hl-blue">🆕 Depuis 2025, <strong>les jours de CP posés dans la semaine sont pris en compte</strong> pour apprécier le seuil de déclenchement des heures supplémentaires lorsque le décompte se fait à la semaine. On additionne <em>heures réellement travaillées</em> + <em>CP au rythme habituel</em> et on compare au seuil de 35 h.</p>
         <details>
           <summary>Indemnité de CP — deux méthodes</summary>
           <ol>
@@ -237,22 +241,68 @@
         </details>
       </section>
 
-      <section id="exos-hs" class="card" data-tags="exercices heures supplémentaires calcul simulateur congés payés">
+      <section id="jours-feries" class="card" data-tags="jours fériés 1er mai chômé payé liste mensualisation exceptions service-public">
+        <h2 class="h1">Jours fériés 🎆 (comptage & paie)</h2>
+        <p><span class="chip info">Règle simple</span> Un jour férié <strong>chômé et payé</strong> n’est pas du temps de <em>travail effectif</em> : il <strong>ne compte pas</strong> pour atteindre le seuil des 35 h de déclenchement des HS. En revanche, un <strong>férié travaillé</strong> compte (heures réellement effectuées).</p>
+        <ul>
+          <li>🎌 <strong>Liste légale (11)</strong> : 1er janvier, lundi de Pâques, 1er mai, 8 mai, Ascension, lundi de Pentecôte, 14 juillet, Assomption, Toussaint, 11 nov., Noël.</li>
+          <li>🌟 <strong>1er mai</strong> : s’il est travaillé → rémunération <strong>doublée</strong> ; s’il est chômé → <strong>payé sans perte</strong>.</li>
+          <li>💶 <strong>Mensualisation</strong> : en pratique, un férié chômé est <em>payé</em> (pas de perte de salaire). <span class="chip ok">✅ Cas usuel</span></li>
+          <li>🧩 <strong>Rares exceptions (non payé)</strong> : salarié <em>sans</em> 3 mois d’ancienneté, travail à domicile, intermittent… (sauf dispositions plus favorables). <span class="chip warn">⚠️ Cas d’école</span></li>
+        </ul>
+        <p class="hl hl-green">Astuce mémo : « CP → + heures ; Férié chômé → 0 h ; Férié travaillé → + heures ; 1er mai travaillé → double ». 😉</p>
+      </section>
+
+      <section id="exos-feries" class="card" data-tags="exercices jours fériés chômé payé non payé 1er mai rémunération">
+        <h2 class="h1">🧪 Exercices — Jours fériés</h2>
+        <p class="muted">Entraînez-vous aux impacts paie/temps de travail selon que le férié est chômé payé, chômé non payé (rare) ou travaillé.</p>
+        <div class="grid two">
+          <div class="field"><label>Mensualisé ?</label>
+            <select id="ferie_mensu"><option value="oui">Oui (cas usuel)</option><option value="non">Non</option></select>
+          </div>
+          <div class="field"><label>Type de férié</label>
+            <select id="ferie_type">
+              <option value="chome_paye">Chômé payé</option>
+              <option value="chome_nonpaye">Chômé non payé (rare)</option>
+              <option value="travaille">Travaillé</option>
+              <option value="premier_mai_travaille">1er mai travaillé</option>
+            </select>
+          </div>
+          <div class="field"><label>Heures planifiées ce jour (si travaillé)</label><input id="ferie_heures" type="number" min="0" step="0.01" placeholder="ex : 7"/></div>
+          <div class="field"><label>Taux horaire (€)</label><input id="ferie_th" type="number" min="0" step="0.01" placeholder="ex : 12.50"/></div>
+        </div>
+        <div style="margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <button class="btn btn-accent" id="calcFerie">🚀 Calculer</button>
+          <span class="muted">Règles : chômé payé → pas de perte (mensualisé) ; chômé non payé → perte potentielle (cas rares) ; travaillé → salaire normal ; 1er mai travaillé → salaire doublé.</span>
+        </div>
+        <div id="ferie_out" class="result"></div>
+        <div id="ferie_break" class="muted"></div>
+        <details style="margin-top:10px"><summary>Exemples guidés</summary>
+          <ul>
+            <li>Mensualisé, férié chômé : 0 h au compteur HS, pas de perte de salaire.</li>
+            <li>Férié travaillé 7 h (hors 1er mai), TH = 12 € → +84 € bruts, heures prises en compte pour le seuil HS.</li>
+            <li>1er mai travaillé 7 h, TH = 12 € → +168 € bruts (double rémunération).</li>
+          </ul>
+        </details>
+      </section>
+
+      <section id="exos-hs" class="card" data-tags="exercices heures supplémentaires calcul simulateur congés payés jours fériés">
         <h2 class="h1">🧪 Exercices & simulateur — Heures supplémentaires</h2>
         <div class="grid two">
-          <div class="field"><label>Heures <strong>travaillées</strong> dans la semaine</label><input id="hs_trav" type="number" min="0" step="0.01" placeholder="ex : 28"/></div>
-          <div class="field"><label>Jours de <strong>congés payés</strong> posés dans la semaine</label><input id="hs_cp_j" type="number" min="0" max="6" step="1" placeholder="ex : 2"/></div>
+          <div class="field"><label>Heures <strong>travaillées</strong> dans la semaine (hors fériés)</label><input id="hs_trav" type="number" min="0" step="0.01" placeholder="ex : 28"/></div>
+          <div class="field"><label>Jours de <strong>congés payés</strong> posés</label><input id="hs_cp_j" type="number" min="0" max="6" step="1" placeholder="ex : 2"/></div>
           <div class="field"><label>Heures <strong>par jour</strong> habituel (planning)</label><input id="hs_hpd" type="number" min="0" step="0.01" placeholder="ex : 7"/></div>
-          <div class="field"><label>Seuil hebdo (par défaut 35 h)</label><input id="hs_seuil" type="number" min="0" step="0.01" value="35"/></div>
+          <div class="field"><label>Heures <strong>travaillées un jour férié</strong> (si oui)</label><input id="hs_h_ferie" type="number" min="0" step="0.01" placeholder="ex : 5"/></div>
+          <div class="field"><label>Seuil hebdo</label><input id="hs_seuil" type="number" min="0" step="0.01" value="35"/></div>
         </div>
         <div style="margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
           <button class="btn btn-accent" id="calcHS">🚀 Calculer</button>
-          <span class="muted">Principe : HS = max(0, (heures travaillées + jours CP × heures/jour) − seuil).</span>
+          <span class="muted">HS = max(0, (heures travaillées + CP × heures/jour + heures férié travaillées) − seuil). Les fériés <em>chômés</em> n’entrent pas dans le calcul.</span>
         </div>
         <div id="hs_out" class="result"></div>
         <div id="hs_breakdown" class="muted"></div>
         <details style="margin-top:10px"><summary>Exemple guidé</summary>
-          <p>Salariée 35 h, travaille 3 jours (21 h) et pose 2 CP (2 × 7 h = 14 h) → total 35 h : <strong>0 HS</strong>. Si elle travaille 4 jours (28 h) + 2 CP (14 h) → 42 h, donc <strong>7 HS</strong> : 7 × 25 %.</p>
+          <p>35 h hebdo, 3 jours travaillés (21 h) + 1 jour CP (7 h) + férié <em>chômé</em> : total pris en compte = 28 h → <strong>0 HS</strong>. Si le férié est <em>travaillé</em> 7 h → 35 h → <strong>0 HS</strong>. Avec 2 CP (14 h) + 28 h travaillées → 42 h → <strong>7 HS</strong> (25 %).</p>
         </details>
       </section>
 
@@ -276,22 +326,38 @@
         </details>
       </section>
 
-      <section id="quiz" class="card" data-tags="quiz entrainement heures supplémentaires complémentaires">
-        <h2 class="h1">🎯 Quiz éclair</h2>
+      <section id="quiz" class="card" data-tags="quiz entrainement heures supplémentaires complémentaires jours fériés congés payés">
+        <h2 class="h1">🎯 Quiz — 10 questions</h2>
         <ol id="quizList" style="line-height:1.7">
-          <li>Salariée 35 h : 3 jours travaillés (21 h) + 1 jour CP (7 h) + 1 jour travaillé (7 h). Y a‑t‑il des heures supplémentaires ?<br/>
-            <div>
-              <button class="btn" data-q="1" data-a="oui">Oui</button>
-              <button class="btn" data-q="1" data-a="non">Non</button>
-              <span class="chip" id="q1"></span>
-            </div>
+          <li data-correct="non">35 h : 3 jours travaillés (21 h) + 1 CP (7 h) + 1 jour travaillé (7 h). Y a‑t‑il des HS ?
+            <div><button class="btn" data-q="1" data-a="oui">Oui</button> <button class="btn" data-q="1" data-a="non">Non</button> <span class="chip" id="q1"></span></div>
           </li>
-          <li>Contrat 24 h. Elle fait 27 h. Sans accord 1/3, quelles majorations ?<br/>
-            <div>
-              <button class="btn" data-q="2" data-a="10">Tout à +10 %</button>
-              <button class="btn" data-q="2" data-a="mix">1/10ᵉ à +10 %, reste à +25 %</button>
-              <span class="chip" id="q2"></span>
-            </div>
+          <li data-correct="mix">Contrat 24 h. Réalisé : 27 h. Sans accord 1/3, quelles majorations ?
+            <div><button class="btn" data-q="2" data-a="10">Tout à +10 %</button> <button class="btn" data-q="2" data-a="mix">1/10ᵉ à +10 %, reste à +25 %</button> <span class="chip" id="q2"></span></div>
+          </li>
+          <li data-correct="non">Semaine avec 1 férié <em>chômé payé</em> et 28 h travaillées (35 h hebdo). HS ?
+            <div><button class="btn" data-q="3" data-a="oui">Oui</button> <button class="btn" data-q="3" data-a="non">Non</button> <span class="chip" id="q3"></span></div>
+          </li>
+          <li data-correct="oui">Semaine avec 1 férié <em>travaillé</em> 7 h et 28 h travaillées (35 h hebdo). HS ?
+            <div><button class="btn" data-q="4" data-a="oui">Oui</button> <button class="btn" data-q="4" data-a="non">Non</button> <span class="chip" id="q4"></span></div>
+          </li>
+          <li data-correct="non">Semaine : 21 h travaillées + 2 CP (2×7 h). HS ?
+            <div><button class="btn" data-q="5" data-a="oui">Oui</button> <button class="btn" data-q="5" data-a="non">Non</button> <span class="chip" id="q5"></span></div>
+          </li>
+          <li data-correct="oui">Semaine : 28 h travaillées + 2 CP (2×7 h). HS ?
+            <div><button class="btn" data-q="6" data-a="oui">Oui</button> <button class="btn" data-q="6" data-a="non">Non</button> <span class="chip" id="q6"></span></div>
+          </li>
+          <li data-correct="mix">Contrat 20 h, réalisé 26 h avec accord 1/3 : répartition des HC ?
+            <div><button class="btn" data-q="7" data-a="10">6 h à +10 %</button> <button class="btn" data-q="7" data-a="mix">2 h à +10 % puis 4 h à +25 %</button> <span class="chip" id="q7"></span></div>
+          </li>
+          <li data-correct="oui">Contrat 20 h, réalisé 23 h sans accord 1/3 : dépassement autorisé ?
+            <div><button class="btn" data-q="8" data-a="oui">Oui</button> <button class="btn" data-q="8" data-a="non">Non</button> <span class="chip" id="q8"></span></div>
+          </li>
+          <li data-correct="non">Semaine décomptée à la semaine : 28 h travaillées + 1 CP (7 h). HS ?
+            <div><button class="btn" data-q="9" data-a="oui">Oui</button> <button class="btn" data-q="9" data-a="non">Non</button> <span class="chip" id="q9"></span></div>
+          </li>
+          <li data-correct="oui">Semaine décomptée à la semaine : 30 h travaillées + 1 CP (7 h). HS ?
+            <div><button class="btn" data-q="10" data-a="oui">Oui</button> <button class="btn" data-q="10" data-a="non">Non</button> <span class="chip" id="q10"></span></div>
           </li>
         </ol>
       </section>
@@ -309,7 +375,18 @@
       <footer class="footer">
         <span>Gabarit pédagogique HTML/CSS/JS — vous pouvez adapter librement ce fichier à votre cours.</span>
       </footer>
-    </main>
+    <section id="refs" class="card" data-tags="références légales code du travail legifrance service-public boss gouv jurisprudence cour de cassation">
+        <h2 class="h1">📚 Références officielles (France)</h2>
+        <ul>
+          <li><strong>Heures supplémentaires</strong> : Code du travail, art. <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000033020373" target="_blank" rel="noopener">L3121‑28</a> et suivants ; fiche Ministère du Travail : <a href="https://travail-emploi.gouv.fr/les-heures-supplementaires-definition-et-limites" target="_blank" rel="noopener">"Définition & limites"</a>.</li>
+          <li><strong>Heures complémentaires</strong> (temps partiel) : Code du travail, partie L3123 (ex. <a href="https://www.legifrance.gouv.fr/codes/id/LEGISCTA000033020103" target="_blank" rel="noopener">Sous‑section 1</a>) ; Service‑Public : <a href="https://www.service-public.fr/particuliers/vosdroits/F32428" target="_blank" rel="noopener">Temps partiel</a> ; BOSS : <a href="https://boss.gouv.fr/accueil/exonerations/exonerations-heures-supplementai.html" target="_blank" rel="noopener">Exonérations HS/HC</a>.</li>
+          <li><strong>Jours fériés</strong> : Code du travail, chap. <a href="https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072050/LEGISCTA000006178007/" target="_blank" rel="noopener">L3133‑1 à L3133‑12</a> ; Ministère du Travail : <a href="https://travail-emploi.gouv.fr/les-jours-feries-et-les-ponts" target="_blank" rel="noopener">Jours fériés et ponts</a> ; Service‑Public : <a href="https://www.service-public.fr/particuliers/vosdroits/F2405" target="_blank" rel="noopener">Fiche salariés</a>.</li>
+          <li><strong>CP & déclenchement HS (MAJ 10/09/2025)</strong> : Communiqué Cour de cassation : <a href="https://www.courdecassation.fr/toutes-les-actualites/2025/09/10/communique-conge-paye-et-decompte-des-heures-supplementaires" target="_blank" rel="noopener">"Congé payé et décompte des heures supplémentaires"</a>.</li>
+        </ul>
+        <p class="muted">Sources : Légifrance, Cour de cassation, Ministère du Travail, Service‑Public.fr, BOSS (Bulletin officiel de la Sécurité sociale). Aucun blog non officiel.</p>
+      </section>
+
+      </main>
   </div>
 
   <script>
@@ -374,10 +451,12 @@
       a.href = url; a.download = 'fiche-remuneration-temps-travail.json';
       a.click(); URL.revokeObjectURL(url);
     });
-      // === Simulateur HS (avec CP assimilé) ===
+
+    // === Simulateur HS (avec CP assimilé) ===
     const hsTrav = document.getElementById('hs_trav');
     const hsCPJ = document.getElementById('hs_cp_j');
     const hsHPD = document.getElementById('hs_hpd');
+    const hsHFerie = document.getElementById('hs_h_ferie');
     const hsSeuil = document.getElementById('hs_seuil');
     const hsOut = document.getElementById('hs_out');
     const hsBreak = document.getElementById('hs_breakdown');
@@ -386,7 +465,8 @@
       const j = parseFloat(hsCPJ.value||'0');
       const hpd = parseFloat(hsHPD.value||'0');
       const seuil = parseFloat(hsSeuil.value||'35');
-      const assimil = t + j*hpd;
+      const ferieTravaillees = parseFloat(hsHFerie.value||'0');
+      const assimil = t + j*hpd + ferieTravaillees; // fériés chômés = 0 h, travaillés = +heures
       const hs = Math.max(0, assimil - seuil);
       const hs25 = Math.min(hs, 8);
       const hs50 = Math.max(0, hs - 8);
@@ -420,22 +500,48 @@
       hcBreak.innerHTML = `<span class='chip ok'>${hc10.toFixed(2)} h à +10%</span>` + (hc25>0? ` <span class='chip ok'>${hc25.toFixed(2)} h à +25%</span>`: '');
     });
 
-    // === Quiz ===
-    const answers = {
-      1: 'oui', // 21+7+7 = 35, exactement le seuil → 0 HS ? En règle stricte, 35 = 0 HS. Mais la plupart répondent "non". On met "oui" uniquement si un autre jour est dépassé. Corrigeons :
-    };
-    // correction: question 1 → NON (35 h tout juste)
-    answers[1] = 'non';
-    answers[2] = 'mix';
+    // === Exercices fériés (chômé payé / non payé / travaillé) ===
+    const ferieMensu = document.getElementById('ferie_mensu');
+    const ferieType = document.getElementById('ferie_type');
+    const ferieHeures = document.getElementById('ferie_heures');
+    const ferieTH = document.getElementById('ferie_th');
+    const ferieOut = document.getElementById('ferie_out');
+    const ferieBreak = document.getElementById('ferie_break');
+    document.getElementById('calcFerie')?.addEventListener('click', () => {
+      const mensu = ferieMensu.value==='oui';
+      const type = ferieType.value;
+      const h = parseFloat(ferieHeures.value||'0');
+      const th = parseFloat(ferieTH.value||'0');
+      let deltaSalaire = 0; let commentaire = '';
+      if (type==='chome_paye') {
+        deltaSalaire = 0; commentaire = mensu? 'Mensualisé : pas de perte, journée chômée payée.' : 'Non mensualisé : vérifier dispositions applicables.';
+      } else if (type==='chome_nonpaye') {
+        deltaSalaire = mensu? 0 : -h*th; commentaire = mensu? 'Mensualisé : en pratique payé.' : 'Cas rare : perte possible si conditions légales non remplies.';
+      } else if (type==='travaille') {
+        deltaSalaire = h*th; commentaire = 'Férié travaillé (hors 1er mai) : rémunération normale.';
+      } else if (type==='premier_mai_travaille') {
+        deltaSalaire = 2*h*th; commentaire = '1er mai travaillé : rémunération doublée.';
+      }
+      ferieOut.textContent = `${deltaSalaire>=0? '💶 Gain/Rémunération': '💸 Perte'} estimé(e) : ${deltaSalaire.toFixed(2)} €`;
+      ferieBreak.textContent = commentaire;
+    });
+
+    // === Quiz étendu (10 Q) ===
+    const answers = {};
+    document.querySelectorAll('#quiz ol > li').forEach((li, idx) => {
+      answers[String(idx+1)] = li.getAttribute('data-correct');
+    });
     document.querySelectorAll('#quiz button[data-q]')?.forEach(btn=>{
       btn.addEventListener('click', () => {
         const q = btn.getAttribute('data-q');
         const a = btn.getAttribute('data-a');
         const ok = a === String(answers[q]);
         const tag = document.getElementById('q'+q);
-        tag.className = 'chip ' + (ok ? 'ok' : 'warn');
-        tag.textContent = ok ? '✅ Correct' : '❌ Essaie encore';
-      })
+        if (tag) {
+          tag.className = 'chip ' + (ok ? 'ok' : 'warn');
+          tag.textContent = ok ? '✅ Correct' : '❌ Essaie encore';
+        }
+      });
     });
   </script>
 </body>
