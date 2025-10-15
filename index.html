@@ -138,6 +138,7 @@
         <a href="#conges-payes">Congés payés</a>
         <a href="#jours-feries">Jours fériés</a>
         <a href="#exos-feries">Exercices fériés</a>
+        <a href="#cas-mixte">Cas mixte CP • Férié • RTT</a>
         <a href="#heures-sup">Heures supplémentaires</a>
         <a href="#exos-hs">Exercices HS</a>
         <a href="#heures-compl">Heures complémentaires</a>
@@ -286,6 +287,43 @@
         </details>
       </section>
 
+      <section id="cas-mixte" class="card" data-tags="cas pratique semaine mixte cp rtt jour férié heures supplémentaires calcul détaillé explications loi">
+        <h2 class="h1">📌 Cas mixte — CP + Férié + RTT + 2 jours travaillés</h2>
+        <p class="muted">Objectif : illustrer une <strong>semaine réelle</strong> mêlant <em>congé payé</em>, <em>jour férié</em>, <em>RTT</em> et <em>deux jours travaillés</em> avec surcharge (10 h/10 h). On calcule si des <strong>heures supplémentaires</strong> sont déclenchées au regard des règles en vigueur.</p>
+        <div class="grid two">
+          <div class="field"><label>Heures du <strong>planning/jour</strong> (référence)</label><input id="cm_hpd" type="number" min="0" step="0.25" value="7"/></div>
+          <div class="field"><label>Heures <strong>jeudi</strong> travaillées</label><input id="cm_thu" type="number" min="0" step="0.25" value="10"/></div>
+          <div class="field"><label>Heures <strong>vendredi</strong> travaillées</label><input id="cm_fri" type="number" min="0" step="0.25" value="10"/></div>
+          <div class="field"><label>Inclure <strong>CP</strong> (lundi)</label>
+            <select id="cm_cp"><option value="oui">Oui</option><option value="non">Non</option></select>
+          </div>
+          <div class="field"><label><strong>Férié chômé</strong> (mardi)</label>
+            <select id="cm_ferie"><option value="oui">Oui (11 nov. 2025)</option><option value="non">Non</option></select>
+          </div>
+          <div class="field"><label>Inclure <strong>RTT</strong> (mercredi)</label>
+            <select id="cm_rtt"><option value="oui">Oui</option><option value="non">Non</option></select>
+          </div>
+          <div class="field"><label>Seuil hebdo</label><input id="cm_seuil" type="number" min="0" step="0.25" value="35"/></div>
+        </div>
+        <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <button class="btn" id="cm_preset">📅 Charger le cas 10→14 nov 2025</button>
+          <button class="btn btn-accent" id="cm_calc">🚀 Calculer la semaine</button>
+          <span class="muted">Règles clés : <strong>CP</strong> pris dans la semaine → <em>assimilé</em> pour déclencher HS · <strong>Férié chômé</strong> → <em>n’est pas</em> du temps effectif · <strong>RTT</strong> → journée de <em>repos</em>, non comptée.</span>
+        </div>
+        <div id="cm_out" class="result"></div>
+        <div id="cm_break" class="muted"></div>
+        <details style="margin-top:10px"><summary>Explication juridique & méthode</summary>
+          <ol>
+            <li><strong>Base légale — temps effectif</strong> : C. trav. <em>L3121‑1</em> (temps à disposition de l’employeur) → un jour non travaillé (RTT, férié chômé) n’est pas du travail effectif. <span class="chip info">Réf.</span></li>
+            <li><strong>Congés payés</strong> : depuis le 10/09/2025, les <em>CP posés</em> comptent pour <em>apprécier le seuil</em> hebdo de HS. <span class="chip info">Réf.</span></li>
+            <li><strong>Jour férié chômé</strong> : ne compte pas pour le seuil HS (il n’est pas du travail effectif). <span class="chip info">Réf.</span></li>
+            <li><strong>RTT</strong> : jour de <em>repos</em> accordé en contrepartie d’une organisation >35 h → ne compte pas pour le seuil HS. <span class="chip info">Réf.</span></li>
+            <li><strong>Calcul</strong> : heures prises en compte = <em>heures travaillées</em> (jeudi+vendredi) + <em>CP assimilé</em> (lundi = h/j planning si CP activé). Le férié chômé (mardi) et le RTT (mercredi) = 0 h.</li>
+            <li><strong>Déclenchement HS</strong> : HS = max(0, total pris en compte − seuil). Ventilation : 25 % de 36→43 h, puis 50 %.</li>
+          </ol>
+        </details>
+      </section>
+
       <section id="exos-hs" class="card" data-tags="exercices heures supplémentaires calcul simulateur congés payés jours fériés">
         <h2 class="h1">🧪 Exercices & simulateur — Heures supplémentaires</h2>
         <div class="grid two">
@@ -358,6 +396,27 @@
           </li>
           <li data-correct="oui">Semaine décomptée à la semaine : 30 h travaillées + 1 CP (7 h). HS ?
             <div><button class="btn" data-q="10" data-a="oui">Oui</button> <button class="btn" data-q="10" data-a="non">Non</button> <span class="chip" id="q10"></span></div>
+          </li>
+        </ol>
+      </section>
+
+      <section id="quiz-rtx" class="card" data-tags="quiz rtt cp férié cas mixte heures supplémentaires">
+        <h2 class="h1">🎯 Quiz — Cas mixte (5 questions)</h2>
+        <ol id="quizList2" style="line-height:1.7">
+          <li data-correct="non">Un <strong>RTT</strong> posé le mercredi compte-t-il pour le seuil des 35 h ?
+            <div><button class="btn" data-q2="1" data-a="oui">Oui</button> <button class="btn" data-q2="1" data-a="non">Non</button> <span class="chip" id="q2_1"></span></div>
+          </li>
+          <li data-correct="oui">Un <strong>CP</strong> pris le lundi compte-t-il pour apprécier les HS hebdo ?
+            <div><button class="btn" data-q2="2" data-a="oui">Oui</button> <button class="btn" data-q2="2" data-a="non">Non</button> <span class="chip" id="q2_2"></span></div>
+          </li>
+          <li data-correct="non">Un <strong>férié chômé</strong> le mardi compte-t-il pour le seuil HS ?
+            <div><button class="btn" data-q2="3" data-a="oui">Oui</button> <button class="btn" data-q2="3" data-a="non">Non</button> <span class="chip" id="q2_3"></span></div>
+          </li>
+          <li data-correct="oui">Avec 10 h + 10 h travaillées (jeu/ven) et un CP le lundi (7 h), le seuil de 35 h est-il dépassé ?
+            <div><button class="btn" data-q2="4" data-a="oui">Oui</button> <button class="btn" data-q2="4" data-a="non">Non</button> <span class="chip" id="q2_4"></span></div>
+          </li>
+          <li data-correct="mix">Si le seuil est dépassé, la ventilation des HS est-elle d’abord à <strong>25 %</strong> puis <strong>50 %</strong> ?
+            <div><button class="btn" data-q2="5" data-a="mix">Oui, 25 % puis 50 %</button> <button class="btn" data-q2="5" data-a="non">Non</button> <span class="chip" id="q2_5"></span></div>
           </li>
         </ol>
       </section>
@@ -534,15 +593,4 @@
     document.querySelectorAll('#quiz button[data-q]')?.forEach(btn=>{
       btn.addEventListener('click', () => {
         const q = btn.getAttribute('data-q');
-        const a = btn.getAttribute('data-a');
-        const ok = a === String(answers[q]);
-        const tag = document.getElementById('q'+q);
-        if (tag) {
-          tag.className = 'chip ' + (ok ? 'ok' : 'warn');
-          tag.textContent = ok ? '✅ Correct' : '❌ Essaie encore';
-        }
-      });
-    });
-  </script>
-</body>
-</html>
+        const a = btn.getAttribute(
